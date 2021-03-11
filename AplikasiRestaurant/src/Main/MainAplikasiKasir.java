@@ -22,12 +22,12 @@ import java.util.Scanner;
  */
 public class MainAplikasiKasir {
     
-     public DaftarMenu daftarMenu;
+     public DaftarMenu daftarMenu;   
     
      public static double PAJAK_PPN = 0.10;
      public static double BIAYA_SERVICE = 0.05;
     
-    public static void main(String[] args, String pesan_lagi) { 
+    public static void Main(String[] args, String pesan_lagi) { 
         
         Scanner input = new Scanner(System.in);
         
@@ -41,7 +41,7 @@ public class MainAplikasiKasir {
         
          // Mulai transaksi
         System.out.println("======== TRANSAKSI ========");
-
+        do {
         // Ambil data transaksi
         System.out.println("No Transaksi : ");
         no_transaksi = input.next();
@@ -142,6 +142,25 @@ public class MainAplikasiKasir {
 
         // Tampilkan total bayar
         System.out.println("Total : \t\t" + trans.hitungTotalBayar(ppn, biaya_service));
+        
+        //cek uang bayar, apakah > total bayar atau tidak
+        double kembalian = 0;
+        do {
+            // ambil input uang bayar
+            double uang_bayar = app.cekInputNumber("Uang Bayar: \t\t");
+            kembalian = trans.hitungKembalian(uang_bayar);
+            if (kembalian < 0) {
+                System.out.println("[Err] Uanf Anda Kurang");
+            } else {
+                System.out.println("Kembalian : \t\t");
+                break;
+            }
+        } while (kembalian < 0);
+        
+        System.out.println("Lakukan Transaksi Lagi?");
+        transaksi_lagi = input.next();
+        } while (transaksi_lagi.equalsIgnoreCase("Y"));
+        System.out.println("======== TERIMA KASIH ========");
     }
 
    
