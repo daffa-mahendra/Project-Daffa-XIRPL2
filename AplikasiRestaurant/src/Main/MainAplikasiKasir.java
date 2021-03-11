@@ -118,7 +118,30 @@ public class MainAplikasiKasir {
             System.out.println("Tambah pesanan lagi? [Y/N] ");
             pesan_lagi = input.next();
             } while (pesan_lagi.equalsIgnoreCase("Y"));
+        // Cetak struk
+        trans.cetakStruk();
 
+        // Hitung total harga
+        double total_pesanan = trans.hitungTotalPesanan();
+        System.out.println("============================");
+        System.out.println("Total : \t\t" + total_pesanan);
+
+        // Hitung pajak
+        trans.setPajak(PAJAK_PPN);
+        double ppn = trans.hitungPajak();
+        System.out.println("Pajak 10% : \t\t" + ppn);
+
+        // Hitung biaya service
+        // Jika makan ditempat, biaya pajak = 10% + 5% service
+        double biaya_service = 0;
+        if(makan_ditempat.equalsIgnoreCase("Y")){
+            trans.setBiayaService(BIAYA_SERVICE);
+            biaya_service = trans.hitungBiayaService();
+            System.out.println("Biaya Service 5% : \t\t" + biaya_service);
+        }
+
+        // Tampilkan total bayar
+        System.out.println("Total : \t\t" + trans.hitungTotalBayar(ppn, biaya_service));
     }
 
    
